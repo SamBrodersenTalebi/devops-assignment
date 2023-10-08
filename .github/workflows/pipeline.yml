@@ -1,0 +1,27 @@
+name: GO app pipeline
+
+# Run the pipeline on pull requests and push to master branch
+on:
+  push:
+     branches:
+      - master
+    pull_request:
+      branches:
+       - master
+
+jobs:
+
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Setup Go environment
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.19'
+
+      - name: Run tests
+      # -v to provide detailed logging ./... run tests from current and all subdirectories 
+        run: go test -v ./...
