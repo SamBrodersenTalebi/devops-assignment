@@ -27,3 +27,6 @@ jobs:
         run: |
           IMAGE_NAME=$(uuidgen)
           docker build -t ttl.sh/${IMAGE_NAME}:1h .
+
+      - name: Push the image to ttl.sh
+        run: docker push ttl.sh/${IMAGE_NAME}:1h
