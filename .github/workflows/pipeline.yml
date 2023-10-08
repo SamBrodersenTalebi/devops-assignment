@@ -23,10 +23,12 @@ jobs:
       # -v to provide detailed logging ./... run tests from current and all subdirectories 
         run: go test -v ./...
       
+      - name: Generate Image Name
+        id: image_name
+        run: echo "::set-output name=IMAGE_NAME::$(uuidgen)"
+
       - name: Build Docker image
-        run: |
-          IMAGE_NAME=$(uuidgen)
-          docker build -t ttl.sh/${IMAGE_NAME}:1h .
+        run: docker build -t ttl.sh/${steps.image_name.outputs.IMAGE_NAME}:1h .
 
       - name: Push the image to ttl.sh
-        run: docker push ttl.sh/${IMAGE_NAME}:1h
+        run: docker push ttl.sh/${steps.image_name.outputs.IMAGE_NAME}:1h
