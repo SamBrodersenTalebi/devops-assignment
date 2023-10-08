@@ -23,12 +23,13 @@ jobs:
       # -v to provide detailed logging ./... run tests from current and all subdirectories 
         run: go test -v ./...
       
+      # Use github env to pass variable
       - name: Generate Image Name
         id: image_name
-        run: echo "::set-output name=IMAGE_NAME::$(uuidgen)"
+        run: echo "IMAGE_NAME=$(uuidgen)" >> $GITHUB_ENV
 
       - name: Build Docker image
-        run: docker build -t ttl.sh/${steps.image_name.outputs.IMAGE_NAME}:1h .
+        run: docker build -t ttl.sh/${IMAGE_NAME}:1h .
 
       - name: Push the image to ttl.sh
-        run: docker push ttl.sh/${steps.image_name.outputs.IMAGE_NAME}:1h
+        run: docker push ttl.sh/${IMAGE_NAME}:1h
