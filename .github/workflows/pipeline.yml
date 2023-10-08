@@ -3,11 +3,8 @@ name: GO app pipeline
 # Run the pipeline on pull requests and push to master branch
 on:
   push:
-     branches:
+    branches:
       - master
-    pull_request:
-      branches:
-       - master
 
 jobs:
 
