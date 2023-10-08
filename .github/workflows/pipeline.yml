@@ -22,3 +22,8 @@ jobs:
       - name: Run tests
       # -v to provide detailed logging ./... run tests from current and all subdirectories 
         run: go test -v ./...
+      
+      - name: Build Docker image
+        run: |
+          IMAGE_NAME=$(uuidgen)
+          docker build -t ttl.sh/${IMAGE_NAME}:1h .
