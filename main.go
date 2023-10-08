@@ -155,6 +155,13 @@ func main() {
 		panic(err)
 	}
 	rdb = redis.NewClient(opt)
+	
+	pong, err := rdb.Ping().Result()
+	if err != nil {
+    	log.Fatalf("Could not connect to Redis: %v", err)
+	} else {
+    	log.Printf("Connected to Redis: %v", pong)
+	}
 
 	b, err := os.ReadFile("secrets/users.json")
 	if err != nil {
