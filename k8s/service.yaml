@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-app-server
+spec:
+  selector:
+    app: go-app-server
+  ports:
+    - protocol: TCP
+      port: 4444
+      targetPort: 4444

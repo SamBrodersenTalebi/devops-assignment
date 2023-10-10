@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: go-app-server
-        image: goapp:version1
+        image: goapp:version2
         ports:
         - containerPort: 4444
         envFrom:
