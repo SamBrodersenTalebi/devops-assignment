@@ -5,7 +5,7 @@ metadata:
   labels:
     app: go-app-server
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: go-app-server
@@ -16,4 +16,22 @@ spec:
     spec:
       containers:
       - name: go-app-server
-      image: ttl.sh/image-name
+        image: goapp:version1
+        ports:
+        - containerPort: 4444
+        envFrom:
+        - configMapRef:
+            name: goapp-config
+        volumeMounts:
+        - name: redis-storage
+          mountPath: "/var/lib/redis"
+        - name: secret-volume
+          mountPath: "/app/secrets"
+          readOnly: true
+      volumes:
+      - name: secret-volume
+        secret:
+          secretName: goapp-secrets
+      - name: redis-storage
+        persistentVolumeClaim:
+          claimName: redis-pvc
