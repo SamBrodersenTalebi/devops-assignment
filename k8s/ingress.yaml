@@ -6,12 +6,13 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
+  - host: localhost
   - http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: go-app-server # Needs to match deployment service name
+            name: go-app-service # Needs to match service name
             port:
               number: 4444
